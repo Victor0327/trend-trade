@@ -1,0 +1,19 @@
+__pycache__/*
+yfinance/__pycache__/*
+dist
+yfinance.egg-info
+*.pyc
+.coverage
+.idea/
+.vscode/
+build/
+*.html
+*.css
+*.png
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
