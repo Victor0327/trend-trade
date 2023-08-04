@@ -31,7 +31,16 @@ def get_bars(symbol, period="10d", interval="60m"):
 
 
 def get_bars_by_type(symbol, type, symbol_title=None):
+  try_times = 0
   if type in ["stock", "domestic_goods", "etf"]:
-    return get_bars(symbol, period="10d", interval="15m"), symbol_title if symbol_title else symbol, type
+    result_df = get_bars(symbol, period="10d", interval="15m")
   else:
-    return get_bars(symbol, period="15d", interval="60m"), symbol_title if symbol_title else symbol, type
+    result_df = get_bars(symbol, period="15d", interval="60m")
+
+  while result_df.empty and try_times < 5:
+    result_df = get_bars(symbol, period="15d", interval="60m")
+    try_times += 1
+
+  return result_df, symbol_title if symbol_title else symbol, type
+
+
