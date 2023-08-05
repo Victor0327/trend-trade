@@ -33,7 +33,7 @@ def get_bars(symbol, period="10d", interval="60m"):
 def get_bars_by_type(symbol, type, symbol_title=None):
   try_times = 0
   if type in ["stock", "domestic_goods", "etf"]:
-    result_df = get_bars(symbol, period="10d", interval="15m")
+    result_df = get_bars(symbol, period="15d", interval="15m")
   else:
     result_df = get_bars(symbol, period="15d", interval="60m")
 
