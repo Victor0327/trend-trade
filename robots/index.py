@@ -1,5 +1,4 @@
 import numpy
-import talib
 import yfinance as yf
 # from zigzag import calculate_zigzag
 

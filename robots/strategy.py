@@ -1,6 +1,7 @@
 import pandas as pd
-import talib
+# import talib
 from itertools import combinations
+from utils.math import calculate_atr
 
 def is_difference_less_than_threshold(prices, threshold):
     lines = []
@@ -30,7 +31,8 @@ def is_need_to_alert(df: pd.DataFrame, extrema):
         print("震荡区间不满足")
         return False, None, None
     # 2. 高点和低点之间存在3个点以上差距小于1/2*当下级别ATR的300SMA
-    atr = talib.ATR(df['High'], df['Low'], df['Close'], timeperiod=200)
+    # atr = talib.ATR(df['High'], df['Low'], df['Close'], timeperiod=200)
+    atr = calculate_atr(df, period=200)
     print("1/2 atr", atr[-1]/2)
 
     highs = [item for item in extrema if item['type'] == 'high']
