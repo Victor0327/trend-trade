@@ -52,8 +52,9 @@ def draw_hl_points(tuple):
 
     date = datetime.now().strftime("%Y-%m-%d")
     # hour_date = datetime.now().strftime("%Y-%m-%d-%H")
-    project_root = dirname(dirname(__file__))
-    chart_save_dir = os.path.join(project_root, "exports", "charts", date, type)
+    # project_root = dirname(dirname(__file__))
+    project_root = "/tmp/"
+    chart_save_dir = os.path.join(project_root, f"{date}_chart", type)
     # print(chart_save_dir)
     if not os.path.exists(chart_save_dir):
         os.makedirs(chart_save_dir)
