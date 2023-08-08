@@ -12,6 +12,8 @@ def zigzag_indicator(df, pips = 0.01, ext_depth = 12, ext_deviation = 0, ext_bac
     low_list = df['Low'].tolist()
     len_price = len(high_list)
     extrema = []
+    if high_list.__len__() < ext_depth:
+        return extrema
     last_highest = high_list[ext_depth]
     last_lowest = low_list[ext_depth]
     last_highest_index = ext_depth
