@@ -17,7 +17,7 @@ def draw_hl_points(tuple):
         print("no need", title)
         return False
     # 国内股票不能做空
-    if type == 'domestic_stock' and nearest_high_line is None:
+    if (type == 'domestic_stock' or type == 'domestic_stock_day') and nearest_high_line is None:
         print("no need", title)
         return False
     # 高点和低点的index和price
