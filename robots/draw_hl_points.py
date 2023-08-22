@@ -12,7 +12,9 @@ def draw_hl_points(tuple):
     # 计算zigzag指标，并得到极值点的位置
     extrema = zigzag_indicator(df, ext_depth=8, ext_backstep=2)
 
-    is_need, nearest_high_line, nearest_low_line =  is_need_to_alert(df, extrema)
+    period = 30 if type == 'domestic_stock_day' else 90
+    points = 3 if type == 'domestic_stock_day' else 6
+    is_need, nearest_high_line, nearest_low_line =  is_need_to_alert(df, extrema, period, points)
     if is_need is not True:
         print("no need", title)
         return False
