@@ -7,7 +7,7 @@ WORKDIR /app
 # 设置环境变量
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=5002
+ENV FLASK_RUN_PORT=5004
 
 # 安装依赖
 COPY requirements.txt requirements.txt
