@@ -12,10 +12,14 @@ def row_to_dict(row):
 
 
 def get_bars(symbol, period="10d", interval="60m"):
-  symbol_ticker = yf.Ticker(symbol)
-  symbol_bars = symbol_ticker.history(period=period, interval=interval)
+  try:
+    symbol_ticker = yf.Ticker(symbol)
+    symbol_bars = symbol_ticker.history(period=period, interval=interval)
 
-  result = symbol_bars.apply(row_to_dict, axis=1).tolist()
-  print(result)
+    result = symbol_bars.apply(row_to_dict, axis=1).tolist()
+  except:
+    print("error")
+    return []
+
 
   return result

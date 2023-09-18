@@ -8,19 +8,19 @@ from datetime import datetime
 from flask import Flask, request, Response
 from flask.helpers import make_response
 
-from controller import bar_controller
+from controller import bar, opportunities
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 app = Flask(__name__)
 
-@app.route('/trade/alert', methods=['GET', 'POST'])
-def webhook_alert():
-    logging.info('=====webhook_alert start====')
-    logging.info(request.path)
+@app.route('/symbol_candle_data/<string:symbol>', methods=['GET', 'POST'])
+def symbol_candle_data(symbol):
+    period = request.args.get('period')
+    interval = request.args.get('interval')
     request_data = request.data
 
-    data = bar_controller.get_bars(symbol="600030.SS", period="30d", interval="60m")
+    data = bar.get_bars(symbol=symbol, period=period, interval=interval)
 
 
 
@@ -33,6 +33,39 @@ def webhook_alert():
     resp_data = {
         'code': 'success',
         'data': data
+    }
+
+
+    resp = Response(json.dumps(resp_data), status=200, content_type='application/json')
+    return resp
+
+@app.route('/ops/<string:create_date>/list', methods=['GET'])
+def ops_list(create_date):
+    page = request.args.get('page')
+    limit = request.args.get('limit')
+
+    args = {
+        'create_date': create_date,
+        'page': page,
+        'limit': limit
+    }
+
+    list, count = opportunities.get_opportunities_by_create_date(args)
+
+
+
+    resp = make_response()
+
+    HTTP_STATUS_OK = 200
+    CONTENT_TYPE_JSON = "application/json"
+    DEFAULT_CONTENT_TYPE = CONTENT_TYPE_JSON + "; charset=utf-8"
+
+    resp_data = {
+        'code': 'success',
+        'data': {
+            'list': list,
+            'count': count
+        }
     }
 
 

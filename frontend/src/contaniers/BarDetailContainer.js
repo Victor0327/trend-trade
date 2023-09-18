@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { createChart } from 'lightweight-charts';
 
-import { barService } from '../services/BarService'
+import { commonService } from '../services/CommonService'
 
 
 const renderChart = () => {
@@ -10,7 +10,7 @@ const renderChart = () => {
     const chart = createChart("chart", chartOptions);
     const candlestickSeries = chart.addCandlestickSeries({ upColor: '#26a69a', downColor: '#ef5350', borderVisible: false, wickUpColor: '#26a69a', wickDownColor: '#ef5350' });
 
-    barService.get('/trade/alert').then((res) => {
+    commonService.get('/trade/alert').then((res) => {
 
       // const data = [
       //   { open: 10, high: 10.63, low: 9.49, close: 9.55, time: 1642427876 },
@@ -54,8 +54,7 @@ const BarDetailContainer = () => {
               background: colorBgContainer,
             }}
           >
-            <div id="chart">
-            </div>
+            <div id="chart"></div>
           </div>
         </>
   );

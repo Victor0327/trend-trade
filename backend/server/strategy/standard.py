@@ -23,11 +23,11 @@ def is_difference_less_than_threshold(prices, threshold):
 
 # 判断是否符合系统迹象
 #
-def is_need_to_alert(df: pd.DataFrame, extrema, period=90, points=6):
+def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
     bar_len = df.__len__()
     # 1. 判断最近90根K有6个以上端点
     point = extrema[-points] if len(extrema) >= points else None
-    if point is None or bar_len - point['index'] > period:
+    if point is None or bar_len - point['index'] > period_length:
         print("震荡区间不满足")
         return False, None, None
     # 2. 高点和低点之间存在3个点以上差距小于1/2*当下级别ATR的300SMA

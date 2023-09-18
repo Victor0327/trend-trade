@@ -11,7 +11,7 @@ config = {
   'test': {
     'host': 'flamingo-test.csgp3g81cy2o.us-west-1.rds.amazonaws.com',
     'password': '2cHC1O3QuwGPwLiK0JSqrA==',
-    'database': 'openresty'
+    'database': 'kong'
   }
 }
 

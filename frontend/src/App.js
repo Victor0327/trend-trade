@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import BarDetailContainer from './contaniers/BarDetailContainer'
+import DateOpsContainer from './contaniers/DateOpsContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -21,10 +22,10 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem('Option 1', '1', <PieChartOutlined />),
+  getItem('Option 1', '1', <><PieChartOutlined href="/bar/detail"/></>),
   getItem('Option 2', '2', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3', <><a href="/bar/detail"/></>),
+    getItem('Tom', '3', <><PieChartOutlined /><a href="/bar/detail"/></>),
     getItem('Bill', '4'),
     getItem('Alex', '5'),
   ]),
@@ -61,6 +62,8 @@ const App = () => {
           <Router>
               <Routes>
                 <Route path="/bar/detail" element={<BarDetailContainer />}>
+                </Route>
+                <Route path="/ops/:date" element={<DateOpsContainer />}>
                 </Route>
               </Routes>
           </Router>
