@@ -20,5 +20,5 @@ services:
     networks:
       - admin-net
     ports:
-      - "5002:5002"
+      - "5004:5004"
     # 其他选项...
