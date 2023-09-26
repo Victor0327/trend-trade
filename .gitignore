@@ -242,3 +242,6 @@ cache.dir
 libs/exports/*
 exports/*
 
+*.pyc
+chromedriver
+output/*

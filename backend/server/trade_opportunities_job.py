@@ -21,8 +21,11 @@ def get_bars(symbol, period="10d", interval="60m"):
 def get_bars_by_type(symbol, type, symbol_title=None):
   try_times = 0
   interval = ''
-  period=''
-  if type in ["stock", "domestic_goods", "etf", "domestic_stock"]:
+  period =''
+  # 国内商品走其他逻辑，待补充
+  if type == 'domestic_goods':
+    pass
+  if type in ["stock", "etf", "domestic_stock"]:
     interval = "60m"
     period = "60d"
   else:
@@ -80,6 +83,6 @@ def main():
      id, symbol, type, title = trade_symbol
      process_strategy(get_bars_by_type(symbol=symbol, type=type))
 
-main()
+# main()
 
 

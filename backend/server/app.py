@@ -9,6 +9,7 @@ from flask import Flask, request, Response
 from flask.helpers import make_response
 
 from controller import bar, opportunities
+from trade_opportunities_job import main as trade_opportunities_job
 
 logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
@@ -72,7 +73,27 @@ def ops_list(create_date):
     resp = Response(json.dumps(resp_data), status=200, content_type='application/json')
     return resp
 
-# Start the httpserver, "Developer Console" -> "Event Subscriptions", setting Request URL: https://domain/webhook/event
-# startup event http server, port: 8089
+@app.route('/market_scan', methods=['POST'])
+def market_scan():
+
+    # TODO:
+
+
+    resp = make_response()
+
+    HTTP_STATUS_OK = 200
+    CONTENT_TYPE_JSON = "application/json"
+    DEFAULT_CONTENT_TYPE = CONTENT_TYPE_JSON + "; charset=utf-8"
+
+    resp_data = {
+        'code': 'success',
+        'data': data
+    }
+
+
+    resp = Response(json.dumps(resp_data), status=200, content_type='application/json')
+    return resp
+
+
 if __name__ == '__main__':
     app.run(port=5004, host="0.0.0.0")
