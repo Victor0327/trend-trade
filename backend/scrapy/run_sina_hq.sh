@@ -9,4 +9,4 @@ while IFS=, read -r symbol interval; do
     # 等待5s
     sleep 5
 
-done < sina_hq_config.txt
+done < /usr/bin/trend-trade/backend/scrapy/sina_hq_config.txt

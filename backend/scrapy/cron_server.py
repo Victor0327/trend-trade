@@ -10,7 +10,7 @@ job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.
 # # 设置任务执行周期，每两分钟执行一次(更多方式请稍后参见参考链接)
 # 下午16点执行
 # job.setall('0 8 * * *')
-job.setall('45 11 * * *')
+job.setall('53 11 * * *')
 # job.setall('25 19 * * *')
 
 
