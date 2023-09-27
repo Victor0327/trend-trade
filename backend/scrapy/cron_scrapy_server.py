@@ -10,19 +10,24 @@ def deleteCron(comment):
       cron_manager.write()
 
 deleteCron('job')
+deleteCron('morning_job')
+deleteCron('afternoon_job')
+deleteCron('evening_job')
 
 
 # # 创建任务 指明运行python脚本的命令(crontab的默认执行路径为：当前用户的根路径, 因此需要指定绝对路径)
-job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='job')
+morning_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='morning_job')
+afternoon_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='afternoon_job')
+evening_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='evening_job')
 # job = cron_manager.new(command='/Users/edz/Codebase/trend-trade/backend/scrapy/run_sina_hq.sh >> /Users/edz/Codebase/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='job')
 
 # # 设置任务执行周期，每两分钟执行一次(更多方式请稍后参见参考链接)
 
-job.setall('*/15 17-20 * * *')
+morning_job.setall('*/15 17-20 * * *')
 
-job.setall('*/15 21-23 * * *')
+afternoon_job.setall('*/15 21-23 * * *')
 
-job.setall('*/15 5-8 * * *')
+evening_job.setall('*/15 5-8 * * *')
 
 
 
