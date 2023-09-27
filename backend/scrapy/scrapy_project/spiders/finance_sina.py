@@ -2,10 +2,12 @@ import scrapy
 import uuid
 from service.postgre_engine import DBEngine
 from table.t_crawl_insert import get_insert_sql, create_table_and_index_sql
-import datetime
+from datetime import datetime, timedelta
 import json
 import re
 from scrapy_project.config import STYLE_ID_DICT, CATEGORY_ID_DICT, PLATFORM_ID_DICT
+from datetime import datetime
+
 # SEARCH.JSON
 
 class Spider(scrapy.Spider):
@@ -36,6 +38,21 @@ class Spider(scrapy.Spider):
         if match:
             json_str = match.group(1)
             data_list = json.loads(json_str)
+            # 做一个过滤 截取当天的数据
+            # 获得当前日期和时间
+            now = datetime.now()
+            yesterday = datetime.now() - timedelta(hours=24)
+
+            # 将其转化为字符串
+            date_string = now.strftime('%Y-%m-%d')
+            yesterday_string = yesterday.strftime('%Y-%m-%d')
+            print(date_string)
+
+            # 只保留当天和昨天的数据
+            filtered_data_list = [x for x in data_list if date_string in x['d'] or yesterday_string in x['d']]
+
+
+
             params = {
                 'symbol': self.symbol,
                 'interval': self.interval
@@ -43,7 +60,8 @@ class Spider(scrapy.Spider):
             # create_table_sql = create_table_and_index_sql(params)
             db = DBEngine()
             # db.run_insert_sql(create_table_sql)
-            insert_data_sql = get_insert_sql(params, data_list)
+            insert_data_sql = get_insert_sql(params, filtered_data_list)
+            # print(insert_data_sql)
             db.run_insert_sql(insert_data_sql)
         else:
             print("No match found.")

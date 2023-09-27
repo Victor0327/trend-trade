@@ -37,5 +37,19 @@ def get_insert_sql(params, data_list):
         )
       {value_str}
       on conflict(date)
-      do nothing;
+      do update set (
+        open,
+        high,
+        low,
+        close,
+        volume,
+        position
+      ) = (
+        excluded.open,
+        excluded.high,
+        excluded.low,
+        excluded.close,
+        excluded.volume,
+        excluded.position
+      );
     """
