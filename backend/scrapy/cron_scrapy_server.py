@@ -9,7 +9,7 @@ def deleteCron(comment):
       cron_manager.remove(job)
       cron_manager.write()
 
-deleteCron('job')
+# deleteCron('job')
 deleteCron('morning_job')
 deleteCron('afternoon_job')
 deleteCron('evening_job')
@@ -23,11 +23,11 @@ evening_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_
 
 # # 设置任务执行周期，每两分钟执行一次(更多方式请稍后参见参考链接)
 
-morning_job.setall('*/15 17-20 * * *')
+morning_job.setall('*/15 1-4 * * *')
 
-afternoon_job.setall('*/15 21-23 * * *')
+afternoon_job.setall('*/15 5-7 * * *')
 
-evening_job.setall('*/15 5-8 * * *')
+evening_job.setall('*/15 13-16 * * *')
 
 
 
