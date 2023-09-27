@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# 更改到指定目录
+cd /usr/bin/trend-trade/backend/scrapy
+
 # 读取配置文件并进行迭代
 while IFS=, read -r symbol interval; do
 
