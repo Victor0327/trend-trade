@@ -13,21 +13,31 @@ def deleteCron(comment):
 deleteCron('morning_job')
 deleteCron('afternoon_job')
 deleteCron('evening_job')
+deleteCron('morning_1_job')
+deleteCron('afternoon_1_job')
+deleteCron('evening_1_job')
+deleteCron('morning_15_job')
+deleteCron('afternoon_15_job')
+deleteCron('evening_15_job')
 
 
-# # 创建任务 指明运行python脚本的命令(crontab的默认执行路径为：当前用户的根路径, 因此需要指定绝对路径)
-morning_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='morning_job')
-afternoon_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='afternoon_job')
-evening_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='evening_job')
-# job = cron_manager.new(command='/Users/edz/Codebase/trend-trade/backend/scrapy/run_sina_hq.sh >> /Users/edz/Codebase/trend-trade/backend/scrapy/output/finance_sina_job.log 2>&1 &', comment='job')
 
-# # 设置任务执行周期，每两分钟执行一次(更多方式请稍后参见参考链接)
+morning_15_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_15.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_15_job.log 2>&1 &', comment='morning_15_job')
+afternoon_15_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_15.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_15_job.log 2>&1 &', comment='afternoon_15_job')
+evening_15_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_15.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_15_job.log 2>&1 &', comment='evening_15_job')
 
-morning_job.setall('*/15 1-4 * * *')
+morning_1_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_1.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_1_job.log 2>&1 &', comment='morning_1_job')
+afternoon_1_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_1.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_1_job.log 2>&1 &', comment='afternoon_1_job')
+evening_1_job = cron_manager.new(command='/usr/bin/trend-trade/backend/scrapy/run_sina_hq_1.sh >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_1_job.log 2>&1 &', comment='evening_1_job')
 
-afternoon_job.setall('*/15 5-7 * * *')
 
-evening_job.setall('*/15 13-16 * * *')
+morning_15_job.setall('*/15 1-4 * * *')
+afternoon_15_job.setall('*/15 5-7 * * *')
+evening_15_job.setall('*/15 13-16 * * *')
+
+morning_1_job.setall('*/1 1-4 * * *')
+afternoon_1_job.setall('*/1 5-7 * * *')
+evening_1_job.setall('*/1 13-16 * * *')
 
 
 

@@ -7,6 +7,7 @@ import json
 import re
 from scrapy_project.config import STYLE_ID_DICT, CATEGORY_ID_DICT, PLATFORM_ID_DICT
 from datetime import datetime
+import pytz
 
 # SEARCH.JSON
 
@@ -40,16 +41,16 @@ class Spider(scrapy.Spider):
             data_list = json.loads(json_str)
             # 做一个过滤 截取当天的数据
             # 获得当前日期和时间
-            now = datetime.now()
-            yesterday = datetime.now() - timedelta(hours=24)
+            tz = pytz.timezone('Asia/Shanghai')
+            now = datetime.now(tz)
+            current_hour = now.strftime('%Y-%m-%d %H')
+            last_hour_time = now - timedelta(hours=1)
+            last_hour = last_hour_time.strftime('%Y-%m-%d %H')
 
-            # 将其转化为字符串
-            date_string = now.strftime('%Y-%m-%d')
-            yesterday_string = yesterday.strftime('%Y-%m-%d')
-            print(date_string)
 
-            # 只保留当天和昨天的数据
-            filtered_data_list = [x for x in data_list if date_string in x['d'] or yesterday_string in x['d']]
+
+            # 只取当前小时和上一个小时的数据
+            filtered_data_list = [x for x in data_list if current_hour in x['d'] or last_hour in x['d']]
 
 
 
@@ -61,7 +62,7 @@ class Spider(scrapy.Spider):
             db = DBEngine()
             # db.run_insert_sql(create_table_sql)
             insert_data_sql = get_insert_sql(params, filtered_data_list)
-            # print(insert_data_sql)
+            print(insert_data_sql)
             db.run_insert_sql(insert_data_sql)
         else:
             print("No match found.")

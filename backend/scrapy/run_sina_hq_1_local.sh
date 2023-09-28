@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# 更改到指定目录
+# cd /usr/bin/trend-trade/backend/scrapy
+
+# 读取配置文件并进行迭代
+while IFS=, read -r symbol interval; do
+
+    scrapy crawl finance_sina -a symbol=$symbol -a interval=$interval >> ./output/finance_sina_1_sh.log 2>&1 &
+
+    # 等待1s
+    sleep 1
+
+done < sina_hq_1_config.txt
