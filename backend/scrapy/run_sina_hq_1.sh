@@ -8,7 +8,6 @@ while IFS=, read -r symbol interval; do
 
     /home/flamingo/anaconda3/bin/scrapy crawl finance_sina -a symbol=$symbol -a interval=$interval >> /usr/bin/trend-trade/backend/scrapy/output/finance_sina_1_sh.log 2>&1 &
 
-    # 等待1s
-    sleep 1
+    sleep 10
 
 done < /usr/bin/trend-trade/backend/scrapy/sina_hq_1_config.txt

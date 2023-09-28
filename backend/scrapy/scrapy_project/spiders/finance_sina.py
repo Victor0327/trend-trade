@@ -62,6 +62,7 @@ class Spider(scrapy.Spider):
             db = DBEngine()
             # db.run_insert_sql(create_table_sql)
             insert_data_sql = get_insert_sql(params, filtered_data_list)
+            # insert_data_sql = get_insert_sql(params, data_list)
             print(insert_data_sql)
             db.run_insert_sql(insert_data_sql)
         else:

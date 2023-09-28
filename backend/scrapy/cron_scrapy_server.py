@@ -35,9 +35,9 @@ morning_15_job.setall('*/15 1-4 * * *')
 afternoon_15_job.setall('*/15 5-7 * * *')
 evening_15_job.setall('*/15 13-16 * * *')
 
-morning_1_job.setall('*/1 1-4 * * *')
-afternoon_1_job.setall('*/1 5-7 * * *')
-evening_1_job.setall('*/1 13-16 * * *')
+morning_1_job.setall('*/20 1-4 * * *')
+afternoon_1_job.setall('*/20 5-7 * * *')
+evening_1_job.setall('*/20 13-16 * * *')
 
 
 
