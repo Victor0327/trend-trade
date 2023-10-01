@@ -16,7 +16,11 @@ services:
     # 其他选项...
 
   backend:
-    build: ./backend/server
+    build:
+      context: ./backend/server
+      args:
+        - http_proxy=http://host.docker.internal:7890
+        - https_proxy=http://host.docker.internal:7890
     networks:
       - admin-net
     ports:
