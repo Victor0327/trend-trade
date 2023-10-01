@@ -19,8 +19,8 @@ services:
     build:
       context: ./backend/server
       args:
-        - http_proxy=http://127.0.0.1:7890
-        - https_proxy=http://127.0.0.1:7890
+        - http_proxy=http://10.0.8.16:7890
+        - https_proxy=http://10.0.8.16:7890
     networks:
       - admin-net
     ports:
