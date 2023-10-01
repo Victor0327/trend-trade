@@ -18,9 +18,9 @@ services:
   backend:
     build:
       context: ./backend/server
-      args:
-        - http_proxy=http://10.0.8.16:7890
-        - https_proxy=http://10.0.8.16:7890
+      # args:
+      #   - http_proxy=http://10.0.8.16:7890
+      #   - https_proxy=http://10.0.8.16:7890
     networks:
       - admin-net
     ports:

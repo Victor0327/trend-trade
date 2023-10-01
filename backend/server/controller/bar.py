@@ -1,11 +1,10 @@
 import numpy as np
 import yfinance as yf
 
-# build 设置代码就不设置了
-# proxies = {
-#    'http': 'http://127.0.0.1:7890',
-#    'https': 'https://127.0.0.1:7890',
-# }
+proxies = {
+   'http': 'http://10.0.8.16:7890',
+   'https': 'http://10.0.8.16:7890',
+}
 
 def row_to_dict(row):
   return {
@@ -20,7 +19,7 @@ def row_to_dict(row):
 def get_bars(symbol, period="10d", interval="60m"):
   try:
     symbol_ticker = yf.Ticker(symbol)
-    symbol_bars = symbol_ticker.history(period=period, interval=interval)
+    symbol_bars = symbol_ticker.history(period=period, interval=interval, proxy=proxies)
 
     result = symbol_bars.apply(row_to_dict, axis=1).tolist()
   except:
