@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 import os
 import logging
+logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 import json
 
 from datetime import datetime
@@ -10,8 +11,8 @@ from flask.helpers import make_response
 
 from controller import bar, opportunities
 from trade_opportunities_job import main as trade_opportunities_job
+import cron_job
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
 
 app = Flask(__name__)
 

@@ -12,12 +12,17 @@ config = {
     'host': 'flamingo-test.csgp3g81cy2o.us-west-1.rds.amazonaws.com',
     'password': '2cHC1O3QuwGPwLiK0JSqrA==',
     'database': 'kong'
+  },
+  'tencent': {
+    'host': '43.138.180.64',
+    'password': '2cHC1O3QuwGPwLiK0JSqrA==',
+    'database': 'trade'
   }
 }
 
 class DBEngine(SuperDBEngine):
 
-    def __init__(self, env = 'test'):
+    def __init__(self, env = 'tencent'):
         db_config = config[env]
         print(db_config)
         # 创建连接池
@@ -96,3 +101,5 @@ class DBEngine(SuperDBEngine):
         cursor.close()
         self.conn_pool.putconn(conn)
         return True
+
+post_db = DBEngine(env='tencent')

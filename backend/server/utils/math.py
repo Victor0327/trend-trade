@@ -1,4 +1,6 @@
 import pandas as pd
+from decimal import Decimal, ROUND_HALF_UP
+
 
 def calculate_atr(df, period=14):
     # 计算三个可能的真实范围值
@@ -13,3 +15,15 @@ def calculate_atr(df, period=14):
     atr = tr.rolling(window=period).mean()
 
     return atr
+
+def average(decimal_list):
+    # 判断列表是否为空
+    if not decimal_list:
+        return None
+    # 计算总和
+    total = sum(decimal_list)
+    # 计算平均数
+    return total / Decimal(len(decimal_list))
+
+def round_decimal(d: Decimal, places='0.01'):
+    return d.quantize(Decimal(places), rounding=ROUND_HALF_UP)

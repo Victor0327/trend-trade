@@ -6,11 +6,9 @@ import numpy as np
 import pandas as pd
 from indicator.zigzag import zigzag_indicator
 from strategy.standard import is_need_to_alert
-from service.postgres_engine import DBEngine
+from service.postgres_engine import post_db as postgres_engine
 from table.trade_symbols import get_list_sql
 from table.trade_opportunities import post_sql
-
-postgres_engine = DBEngine()
 
 def get_bars(symbol, period="10d", interval="60m"):
   symbol_ticker = yf.Ticker(symbol)

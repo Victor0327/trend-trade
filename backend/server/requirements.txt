@@ -5,3 +5,6 @@ psycopg2-binary
 pandas
 numpy
 yfinance
+binance-futures-connector
+apscheduler
+secure-smtplib

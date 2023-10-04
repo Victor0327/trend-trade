@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
-  TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme, Space } from 'antd';
 import BarDetailContainer from './contaniers/BarDetailContainer'
 import DateOpsContainer from './contaniers/DateOpsContainer'
+// import AipContainer from './contaniers/AipContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -22,15 +22,19 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem('Option 1', '1', <><PieChartOutlined href="/bar/detail"/></>),
-  getItem('Option 2', '2', <DesktopOutlined />),
+  getItem('定期投资', '1',
+  <Space size={1}>
+    <FileOutlined />
+    <a href="/aip/list"/>
+  </Space>),
+  getItem('Option', '2', <><PieChartOutlined href="/bar/detail"/></>),
+  getItem('Option', '3', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3', <><PieChartOutlined /><a href="/bar/detail"/></>),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
+    getItem('Tom', '4', <><PieChartOutlined /><a href="/bar/detail"/></>),
+    getItem('Bill', '5'),
+    getItem('Alex', '6'),
   ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
+  getItem('Files', '7', <FileOutlined />),
 ];
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -61,10 +65,9 @@ const App = () => {
         >
           <Router>
               <Routes>
-                <Route path="/bar/detail" element={<BarDetailContainer />}>
-                </Route>
-                <Route path="/ops/:date" element={<DateOpsContainer />}>
-                </Route>
+                {/* <Route path="/aip/list" element={<AipListContainer />}></Route> */}
+                <Route path="/bar/detail" element={<BarDetailContainer />}></Route>
+                <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
               </Routes>
           </Router>
         </Content>
@@ -73,7 +76,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          Victor Trade ©2023 Created by victor
         </Footer>
       </Layout>
     </Layout>

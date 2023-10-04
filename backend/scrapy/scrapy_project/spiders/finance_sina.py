@@ -1,6 +1,6 @@
 import scrapy
 import uuid
-from service.postgre_engine import DBEngine
+from service.postgre_engine import post_db
 from table.t_crawl_insert import get_insert_sql, create_table_and_index_sql
 from datetime import datetime, timedelta
 import json
@@ -59,11 +59,10 @@ class Spider(scrapy.Spider):
                 'interval': self.interval
             }
             # create_table_sql = create_table_and_index_sql(params)
-            db = DBEngine()
-            # db.run_insert_sql(create_table_sql)
+            # post_db.run_insert_sql(create_table_sql)
             insert_data_sql = get_insert_sql(params, filtered_data_list)
             # insert_data_sql = get_insert_sql(params, data_list)
             print(insert_data_sql)
-            db.run_insert_sql(insert_data_sql)
+            post_db.run_insert_sql(insert_data_sql)
         else:
             print("No match found.")

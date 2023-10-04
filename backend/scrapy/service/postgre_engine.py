@@ -58,3 +58,5 @@ class DBEngine:
 
     def get_conn(self):
       return self.conn
+
+post_db = DBEngine(env='tencent')
