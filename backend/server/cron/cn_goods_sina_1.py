@@ -14,7 +14,7 @@ import re
 import pytz
 import json
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from table.t_cn_goods_insert import get_insert_sql, create_table_and_index_sql
 from service.postgres_engine import post_db
 
@@ -49,12 +49,16 @@ def fetch_data(symbol):
           'interval': interval
       }
 
-      logging.info('filtered_data_list', filtered_data_list)
+      logging.info('filtered_data_list')
+      logging.info(filtered_data_list)
 
-      insert_data_sql = get_insert_sql(params, filtered_data_list)
       # insert_data_sql = get_insert_sql(params, data_list)
       # print(insert_data_sql)
-      post_db.run_sql_to_commit(insert_data_sql)
+      # post_db.run_sql_to_commit(insert_data_sql)
+
+      if filtered_data_list.__len__() > 0:
+        insert_data_sql = get_insert_sql(params, filtered_data_list)
+        post_db.run_sql_to_commit(insert_data_sql)
   else:
       print("No match found.")
 
@@ -74,6 +78,17 @@ class CronJob:
       pass
 
     def run(self):
+
+      # 获取今天的日期
+      today = date.today()
+
+      # 服务器utc周末从北京时间周六早上8点开始到周一早上8点结束
+      if today.weekday() >= 5:
+          logging.info('今天是周末,休息啦')
+          return
+
+      logging.info('今天是工作日')
+
       # 打开文件并读取所有行
       # 服务器用绝对路径
       logging.info(f'打开{script_dir}/sina_cn_goods.txt')
