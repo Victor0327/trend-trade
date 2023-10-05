@@ -3,7 +3,7 @@ import pytz
 
 def get_current_date(format='%Y-%m-%d %H:%M:%S'):
   # 获取当前日期
-    current_date = datetime.now().date()
+    current_date = datetime.now()
 
     date_string = current_date.strftime(format)
     return date_string

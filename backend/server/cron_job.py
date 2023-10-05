@@ -1,6 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from cron.crypto_btcusdt_spot_1d import job as crypto_btcusdt_spot_1d
 from cron.crypto_btcusdt_perpetual_1d import job as crypto_btcusdt_perpetual_1d
+from cron.crypto_btcusdt_perpetual_15m import job as crypto_btcusdt_perpetual_15m
 from cron.aip import aip_cron_jobs
 from cron.cn_goods_sina_1 import job as cn_goods_sina_1
 from cron.cn_goods_sina_15 import job as cn_goods_sina_15
@@ -17,6 +18,14 @@ scheduler.add_job(
     **crypto_btcusdt_spot_1d.trigger_args)
 
 logging.info(f"add_job {crypto_btcusdt_spot_1d.job_id}")
+
+scheduler.add_job(
+    crypto_btcusdt_perpetual_15m.run,
+    trigger=crypto_btcusdt_perpetual_15m.trigger,
+    id=crypto_btcusdt_perpetual_15m.job_id,
+    **crypto_btcusdt_perpetual_15m.trigger_args)
+
+logging.info(f"add_job {crypto_btcusdt_perpetual_15m.job_id}")
 
 scheduler.add_job(
     crypto_btcusdt_perpetual_1d.run,
