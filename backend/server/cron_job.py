@@ -5,6 +5,7 @@ from cron.aip import aip_cron_jobs
 from cron.cn_goods_sina_1 import job as cn_goods_sina_1
 from cron.cn_goods_sina_15 import job as cn_goods_sina_15
 from cron.us_goods_sina_15 import job as us_goods_sina_15
+from cron.currency_sina_15 import job as currency_sina_15
 import logging
 
 scheduler = BackgroundScheduler()
@@ -48,6 +49,14 @@ scheduler.add_job(
     **us_goods_sina_15.trigger_args)
 
 logging.info(f"add_job {us_goods_sina_15.job_id}")
+
+scheduler.add_job(
+    currency_sina_15.run,
+    trigger=currency_sina_15.trigger,
+    id=currency_sina_15.job_id,
+    **currency_sina_15.trigger_args)
+
+logging.info(f"add_job {currency_sina_15.job_id}")
 
 
 # aip 定投

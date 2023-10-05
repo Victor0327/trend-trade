@@ -125,7 +125,6 @@ def draw_currency():
     draw_hl_points(get_bars_by_type(symbol="CNH=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="CAD=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="JPY=X", type="currency"))
-    # draw_hl_points(get_bars_by_type(symbol="TRY=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="HKD=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="SGD=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="INR=X", type="currency"))
@@ -155,7 +154,6 @@ def draw_currency():
     draw_hl_points(get_bars_by_type(symbol="NOKJPY=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="HKDJPY=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="SGDJPY=X", type="currency"))
-    # draw_hl_points(get_bars_by_type(symbol="TRYJPY=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="ZARJPY=X", type="currency"))
 
     draw_hl_points(get_bars_by_type(symbol="EURCHF=X", type="currency"))
@@ -222,11 +220,9 @@ def draw_currency():
 
     draw_hl_points(get_bars_by_type(symbol="EURDKK=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="GBPDKK=X", type="currency"))
-    # draw_hl_points(get_bars_by_type(symbol="NOKDKK=X", type="currency"))
 
     draw_hl_points(get_bars_by_type(symbol="EURSEK=X", type="currency"))
     draw_hl_points(get_bars_by_type(symbol="GBPSEK=X", type="currency"))
-    # draw_hl_points(get_bars_by_type(symbol="NOKSEK=X", type="currency"))
 
 def draw_cryptos():
     draw_hl_points(get_bars_by_type(symbol="1INCH-USD", type="cryptos"))
