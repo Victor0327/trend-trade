@@ -32,8 +32,10 @@ def unix_ms_timestamp_to_date_string(unix_ms_timestamp, format='%Y-%m-%d %H:%M:%
     return formatted_date_string
 
 
-def date_string_to_unix_ms_timestamp(date_string, format='%Y-%m-%d %H:%M:%S'):
+def date_string_to_unix_ms_timestamp(date_string, format='%Y-%m-%d %H:%M:%S', timezone='Asia/Shanghai'):
     dt = datetime.strptime(date_string, format)
+    tz = pytz.timezone(timezone)
+    dt = tz.localize(dt)
     unix_timestamp_milliseconds = int(dt.timestamp() * 1000)
 
     return unix_timestamp_milliseconds
