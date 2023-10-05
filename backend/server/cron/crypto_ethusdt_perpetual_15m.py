@@ -17,7 +17,7 @@ from service.postgres_engine import post_db
 from utils.date import date_string_to_unix_ms_timestamp, get_current_date, get_delta_date
 
 class CronJob:
-  job_id = 'crypto_btcusdt_perpetual_15m'
+  job_id = 'crypto_ethusdt_perpetual_15m'
   trigger = 'cron'
   # 服务器是utc时区需要调整
   trigger_args = {
@@ -30,7 +30,7 @@ class CronJob:
     pass
 
   def run(self):
-    logging.info('start cron job crypto_btcusdt_perpetual_15m')
+    logging.info('start cron job crypto_ethusdt_perpetual_15m')
     api_key = 'Nd0C1zQ4YpMyhEl30xPzkHkM43RjC39QLg9UoJjSU8TmymY8WgBoBB4d4X6X4MtX'
     secret_key = 'Xc0CnHSdd3RgjgIySPC5Ofg7QkajMA98qaGFomV6J6NmuTVsOSWRJ5ykOkTR2ssa'
 
@@ -48,7 +48,7 @@ class CronJob:
     )
 
 
-    pair = 'BTCUSDT'
+    pair = 'ETHUSDT'
     contractType = 'PERPETUAL'
     interval = '15m'
 
@@ -61,6 +61,7 @@ class CronJob:
 
 
     # Get account information
+
 
 
     data_list = um_futures_client.continuous_klines(
@@ -97,3 +98,31 @@ job = CronJob()
 
 # 临时要执行
 # job.run()
+
+
+
+# 刷历史数据
+# for i in range(1, 100):
+#   startTime = 1567876380000 + i * 900000 * 1500
+#   endTime = startTime + 900000 * 1500 + 1000
+#   if endTime > date_string_to_unix_ms_timestamp(get_current_date(format='%Y-%m-%d %H:%M:%S')):
+#     break
+#   data_list = um_futures_client.continuous_klines(
+#     pair=pair,
+#     contractType=contractType,
+#     startTime=startTime,
+#     endTime=endTime,
+#     interval=interval,
+#     limit=1500)
+
+#   if data_list.__len__() == 0:
+#     continue
+
+#   sql = get_insert_sql({
+#     'pair': pair.lower(),
+#     'contractType': contractType.lower(),
+#     'interval': interval.lower()
+#   }, data_list)
+
+#   logging.info(sql)
+#   post_db.run_sql_to_commit(sql)
