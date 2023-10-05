@@ -20,7 +20,7 @@ from service.postgres_engine import post_db
 
 def fetch_data(symbol):
   interval = 15
-  datalen = 1440
+  datalen = 10
   logging.info(f'正在处理: {symbol} {interval}')
 
 
