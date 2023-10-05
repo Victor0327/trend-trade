@@ -30,6 +30,7 @@ def fetch_data(symbol):
   match = re.search(rf'_{symbol}_{interval}=\((.*?)\);', data_str, re.DOTALL)
 
   if match:
+      logging.info(f'数据返回成功')
       json_str = match.group(1)
       data_list = json.loads(json_str)
       # 做一个过滤 截取当天的数据
@@ -47,6 +48,8 @@ def fetch_data(symbol):
           'symbol': symbol,
           'interval': interval
       }
+
+      logging.info('filtered_data_list', filtered_data_list)
 
       insert_data_sql = get_insert_sql(params, filtered_data_list)
       # insert_data_sql = get_insert_sql(params, data_list)
