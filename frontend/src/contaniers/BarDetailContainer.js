@@ -8,7 +8,9 @@ import { commonService } from '../services/CommonService'
 const renderChart = () => {
   const chartOptions = { layout: { textColor: 'black', background: { type: 'solid', color: 'white' } }, width: 800, height: 300 };
     const chart = createChart("chart", chartOptions);
-    const candlestickSeries = chart.addCandlestickSeries({ upColor: '#26a69a', downColor: '#ef5350', borderVisible: false, wickUpColor: '#26a69a', wickDownColor: '#ef5350' });
+    const candlestickSeries = chart.addCandlestickSeries(
+      { upColor: '#26a69a', downColor: '#ef5350', borderVisible: false, wickUpColor: '#26a69a', wickDownColor: '#ef5350' }
+      );
 
     commonService.get('/trade/alert').then((res) => {
 

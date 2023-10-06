@@ -10,6 +10,19 @@ const transferOpsList = (dataList) => {
   })
 }
 
+const convert_list_data_to_lightweight_charts_format = (data) => {
+    return data.map((item) => {
+      return {
+        "time": item[0],
+        "open": item[1],
+        "high": item[2],
+        "low": item[3],
+        "close": item[4]
+      }
+    })
+}
+
 export {
-  transferOpsList
+  transferOpsList,
+  convert_list_data_to_lightweight_charts_format
 }

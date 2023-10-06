@@ -9,12 +9,49 @@ from datetime import datetime
 from flask import Flask, request, Response
 from flask.helpers import make_response
 
-from controller import bar, opportunities
+from controller import bar, opportunities, symbol_data
 from trade_opportunities_job import main as trade_opportunities_job
-import cron_job
+
+from utils.json import custom_json_handler
+# 本地环境注释
+# import cron_job
 
 
 app = Flask(__name__)
+
+@app.route('/symbol_data', methods=['GET'])
+def get_symbol_data():
+    symbol_type = request.args.get('symbol_type')
+    symbol = request.args.get('symbol')
+    interval = request.args.get('interval')
+    page = request.args.get('page')
+    limit = request.args.get('limit')
+
+    args = {
+        'symbol_type': symbol_type,
+        'symbol': symbol,
+        'interval': interval,
+        'page': page,
+        'limit': limit
+    }
+
+    request_data = request.data
+
+    data = symbol_data.get_symbol_data(args)
+    resp = make_response()
+
+    HTTP_STATUS_OK = 200
+    CONTENT_TYPE_JSON = "application/json"
+    DEFAULT_CONTENT_TYPE = CONTENT_TYPE_JSON + "; charset=utf-8"
+
+    resp_data = {
+        'code': 'success',
+        'data': data
+    }
+
+
+    resp = Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+    return resp
 
 @app.route('/symbol_candle_data/<string:symbol>', methods=['GET', 'POST'])
 def symbol_candle_data(symbol):
@@ -23,9 +60,6 @@ def symbol_candle_data(symbol):
     request_data = request.data
 
     data = bar.get_bars(symbol=symbol, period=period, interval=interval)
-
-
-
     resp = make_response()
 
     HTTP_STATUS_OK = 200

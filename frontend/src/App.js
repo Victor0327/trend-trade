@@ -10,6 +10,7 @@ import {
 import { Layout, Menu, theme, Space } from 'antd';
 import BarDetailContainer from './contaniers/BarDetailContainer'
 import DateOpsContainer from './contaniers/DateOpsContainer'
+import SymbolChartContainer from './contaniers/SymbolChartContainer'
 // import AipContainer from './contaniers/AipContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -67,6 +68,7 @@ const App = () => {
               <Routes>
                 {/* <Route path="/aip/list" element={<AipListContainer />}></Route> */}
                 <Route path="/bar/detail" element={<BarDetailContainer />}></Route>
+                <Route path="/symbol/:symbol_type/:symbol" element={<SymbolChartContainer />}></Route>
                 <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
               </Routes>
           </Router>

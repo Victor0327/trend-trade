@@ -39,3 +39,10 @@ def date_string_to_unix_ms_timestamp(date_string, format='%Y-%m-%d %H:%M:%S', ti
     unix_timestamp_milliseconds = int(dt.timestamp() * 1000)
 
     return unix_timestamp_milliseconds
+
+def convert_datetime_in_tuple_list(data):
+    converted_data = []
+    for tup in data:
+        converted_tup = tuple(item.isoformat() if isinstance(item, datetime) else item for item in tup)
+        converted_data.append(converted_tup)
+    return converted_data
