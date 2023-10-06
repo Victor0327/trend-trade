@@ -21,7 +21,10 @@ def get_insert_sql(params, data_list):
 
     value_str = 'VALUES '
     for data in data_list:
-        value_str = value_str + f"('{data['d']}', '{data['o']}', '{data['h']}', '{data['l']}', '{data['c']}', '{data['v']}', '{data['p']}'),"
+        if 'd' in data:
+          value_str = value_str + f"('{data['d']}', '{data['o']}', '{data['h']}', '{data['l']}', '{data['c']}', '{data['v']}', '{data['p']}'),"
+        elif 'date' in data:
+          value_str = value_str + f"('{data['date']}', '{data['open']}', '{data['high']}', '{data['low']}', '{data['close']}', '{data['volume']}', '{data['position']}'),"
 
     value_str = value_str[0:-1]
 

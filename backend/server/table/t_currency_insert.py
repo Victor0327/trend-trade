@@ -19,7 +19,11 @@ def get_insert_sql(params, data_list):
 
     value_str = 'VALUES '
     for data in data_list:
-        value_str = value_str + f"('{data['d']}', '{data['o']}', '{data['h']}', '{data['l']}', '{data['c']}'),"
+        if 'd' in data:
+          value_str = value_str + f"('{data['d']}', '{data['o']}', '{data['h']}', '{data['l']}', '{data['c']}'),"
+        else :
+          # 先低再高
+          value_str = value_str + f"('{data[0]}', '{data[1]}', '{data[3]}', '{data[2]}', '{data[4]}'),"
 
     value_str = value_str[0:-1]
 

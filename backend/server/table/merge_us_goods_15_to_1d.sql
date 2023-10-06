@@ -1,4 +1,4 @@
--- TODO:
+-- TODO: 国内行情合并的sql不大好写，时间计算太麻烦了，先不用了。
 -- merge cn_goods_a0_15 to cn_goods_a0_1d
 drop table if exists tmp_cn_goods_a0_1d;
 

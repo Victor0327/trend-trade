@@ -53,3 +53,8 @@ def get_insert_sql(params, data_list):
         excluded.position
       );
     """
+
+# 删除数据
+#     return f"""
+# truncate table cn_goods_{params['symbol']}_{params['interval']} RESTART IDENTITY;
+#     """

@@ -22,9 +22,9 @@ const Container = () => {
   if (symbol_type === 'crypto') {
     intervals = ['15m', '1d']
   } else if (symbol_type === 'cn_goods') {
-    intervals = ['1', '15']
+    intervals = ['1', '15', '1d']
   } else {
-    intervals = ['15']
+    intervals = ['15', '1d']
   }
 
   const chartRef = useRef(null);
