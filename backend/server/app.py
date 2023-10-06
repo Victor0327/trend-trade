@@ -14,7 +14,8 @@ from trade_opportunities_job import main as trade_opportunities_job
 
 from utils.json import custom_json_handler
 # 本地环境注释
-# import cron_job
+# TODO: qcloud环境需要打开
+import cron_job
 
 
 app = Flask(__name__)
