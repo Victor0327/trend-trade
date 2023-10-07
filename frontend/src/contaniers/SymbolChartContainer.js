@@ -54,8 +54,8 @@ const Container = () => {
   const renderChart = () => {
 
     chartRef.current = createChart("chart", {
-      width: 1200,
-      height: 600,
+      width: 390,
+      height: 280,
       layout: {
         background: {
                 type: 'solid',
@@ -107,21 +107,22 @@ const Container = () => {
 
   return (
         <>
-          <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>【{symbol}】价格图表</Breadcrumb.Item>
-          </Breadcrumb>
           <div
             style={{
-              padding: 24,
+              padding: '12px',
               minHeight: 360,
               background: colorBgContainer,
             }}
           >
             <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+              <Breadcrumb
+                style={{
+                  margin: '60px 0 0 0',
+                }}
+              >
+                <Breadcrumb.Item>【{symbol}】价格图表</Breadcrumb.Item>
+              </Breadcrumb>
+              <div id="chart"></div>
               <Radio.Group defaultValue={intervals[0]} buttonStyle="solid" onChange={handleChangeSwitcher}>
                 {
                   intervals.map((interval, index) => {
@@ -129,7 +130,6 @@ const Container = () => {
                   })
                 }
               </Radio.Group>
-              <div id="chart"></div>
             </Space>
           </div>
         </>

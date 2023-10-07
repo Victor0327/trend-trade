@@ -1,41 +1,49 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, theme, Space } from 'antd';
+import { ConfigProvider, Layout, Menu, theme, Space } from 'antd';
 import BarDetailContainer from './contaniers/BarDetailContainer'
 import DateOpsContainer from './contaniers/DateOpsContainer'
 import SymbolChartContainer from './contaniers/SymbolChartContainer'
+import SymbolsContainer from './contaniers/SymbolsContainer'
 // import AipContainer from './contaniers/AipContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
-function getItem(label, key, icon, children) {
+var itemKey = 0
+function getItem(label, icon, children) {
+  itemKey ++
   return {
-    key,
+    key: itemKey,
     icon,
     children,
     label,
   };
 }
 const items = [
-  getItem('定期投资', '1',
+  getItem('定期投资',
   <Space size={1}>
     <FileOutlined />
     <a href="/aip/list"/>
   </Space>),
-  getItem('Option', '2', <><PieChartOutlined href="/bar/detail"/></>),
-  getItem('Option', '3', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '4', <><PieChartOutlined /><a href="/bar/detail"/></>),
-    getItem('Bill', '5'),
-    getItem('Alex', '6'),
+  getItem('行情数据',
+  <Space size={1}>
+    <FileOutlined />
+    <a href="/symbols"/>
+  </Space>),
+  getItem('Option', <><PieChartOutlined href="/bar/detail"/></>),
+  getItem('Option', <DesktopOutlined />),
+  getItem('User', <UserOutlined />, [
+    getItem('Tom', <><PieChartOutlined /><a href="/bar/detail"/></>),
+    getItem('Bill'),
+    getItem('Alex'),
   ]),
-  getItem('Files', '7', <FileOutlined />),
+  getItem('Files', <FileOutlined />),
 ];
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -43,45 +51,64 @@ const App = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   return (
-    <Layout
-      style={{
-        minHeight: '100vh',
-      }}
-    >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-      </Sider>
-      <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
+    <ConfigProvider
+        theme={{
+          components: {
+            Layout: {
+              headerHeight: 20
+            }
+          },
+        }}
+      >
+      <Layout
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          zeroWidthTriggerStyle={{
+            top: 10,
           }}
-        />
-        <Content
-          style={{
-            margin: '0 16px',
-          }}
+          collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
         >
-          <Router>
-              <Routes>
-                {/* <Route path="/aip/list" element={<AipListContainer />}></Route> */}
-                <Route path="/bar/detail" element={<BarDetailContainer />}></Route>
-                <Route path="/symbol/:symbol_type/:symbol" element={<SymbolChartContainer />}></Route>
-                <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
-              </Routes>
-          </Router>
-        </Content>
-        <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Victor Trade ©2023 Created by victor
-        </Footer>
+          <div className="demo-logo-vertical" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        </Sider>
+        <Layout>
+          {/* <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+            }}
+          /> */}
+          <Content
+            style={{
+              // margin: '0 16px',
+            }}
+          >
+            <Router>
+                <Routes>
+                  {/* <Route path="/aip/list" element={<AipListContainer />}></Route> */}
+                  <Route path="/symbols" element={<SymbolsContainer />}></Route>
+                  <Route path="/bar/detail" element={<BarDetailContainer />}></Route>
+                  <Route path="/symbol/:symbol_type/:symbol" element={<SymbolChartContainer />}></Route>
+                  <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
+                  <Route path="/" element={ <Navigate to="/symbols" /> } />
+                </Routes>
+            </Router>
+          </Content>
+          <Footer
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            Victor Trade ©2023 Created by victor
+          </Footer>
+        </Layout>
       </Layout>
-    </Layout>
+    </ConfigProvider>
   );
 };
 export default App;

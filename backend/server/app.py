@@ -9,7 +9,7 @@ from datetime import datetime
 from flask import Flask, request, Response
 from flask.helpers import make_response
 
-from controller import bar, opportunities, symbol_data
+from controller import bar, opportunities, symbol_data, symbols
 from trade_opportunities_job import main as trade_opportunities_job
 
 from utils.json import custom_json_handler
@@ -19,6 +19,31 @@ import cron_job
 
 
 app = Flask(__name__)
+
+@app.route('/symbols', methods=['GET'])
+def get_symbols():
+    type = request.args.get('type')
+
+    args = {
+        'type': type,
+    }
+
+    data = symbols.get_symbols(args)
+    resp = make_response()
+
+    HTTP_STATUS_OK = 200
+    CONTENT_TYPE_JSON = "application/json"
+    DEFAULT_CONTENT_TYPE = CONTENT_TYPE_JSON + "; charset=utf-8"
+
+    resp_data = {
+        'code': 'success',
+        'data': data
+    }
+
+    resp = Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+    return resp
+
+
 
 @app.route('/symbol_data', methods=['GET'])
 def get_symbol_data():
