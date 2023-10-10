@@ -1,40 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Breadcrumb, theme, Button, Space, Input, Table } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import Modal from '../components/Common/Modal'
 import Message from '../components/Common/Message'
+import { getColumnSearchProps } from '../components/Common/ColumnSearch'
 
 import { commonService } from '../services/CommonService'
 
 const ref = React.createRef();
 
-const symbolsColumns = [
-  {
-    title: '标的缩写',
-    key: 'symbol',
-    dataIndex: 'symbol',
-  },
-  {
-    title: '标的名称',
-    key: 'symbol_title',
-    dataIndex: 'symbol_title',
-  },
-  {
-    title: '操作',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a href={`/symbol/${record.type}/${record.symbol}`}
-        // target="_blank"
-        rel="noopener noreferrer">查看行情</a>
-      </Space>
-    ),
-  },
-];
 
 const Container = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const [searchText, setSearchText] = useState('');
+  const [searchedColumn, setSearchedColumn] = useState('');
+  const searchInput = useRef(null);
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText('');
+  };
 
   const [cryptoTableData, setCryptoTableData] = useState([]);
   const [USGoodsTableData, setUSGoodsTableData] = useState([]);
@@ -66,6 +60,32 @@ const Container = () => {
 
     }
   }, [])
+
+  const symbolsColumns = [
+    {
+      title: '标的缩写',
+      key: 'symbol',
+      dataIndex: 'symbol',
+      ...getColumnSearchProps('symbol', searchText, searchedColumn, searchInput, handleSearch, handleReset, setSearchText, setSearchedColumn),
+    },
+    {
+      title: '标的名称',
+      key: 'symbol_title',
+      dataIndex: 'symbol_title',
+      ...getColumnSearchProps('symbol_title', searchText, searchedColumn, searchInput, handleSearch, handleReset, setSearchText, setSearchedColumn),
+    },
+    {
+      title: '操作',
+      key: 'action',
+      render: (_, record) => (
+        <Space size="middle">
+          <a href={`/symbol/${record.type}/${record.symbol}`}
+          // target="_blank"
+          rel="noopener noreferrer">查看行情</a>
+        </Space>
+      ),
+    },
+  ]
 
 
 
