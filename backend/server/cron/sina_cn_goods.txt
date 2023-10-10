@@ -50,3 +50,4 @@ SH0
 FU0
 NR0
 LU0
+EC0
