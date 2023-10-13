@@ -3,7 +3,7 @@ import { Card, Col, Row, theme, Pagination, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import { createChart } from 'lightweight-charts';
-import { transferOpsList } from '../utils/transferModle'
+import { transferOpsList } from '../utils/transferModel'
 
 import { commonService } from '../services/CommonService'
 import OpsTable from '../components/OpsTable'

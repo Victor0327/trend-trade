@@ -4,7 +4,7 @@ import { Breadcrumb, theme, Radio, Space } from 'antd';
 import { createChart } from 'lightweight-charts';
 
 import { commonService } from '../services/CommonService'
-import { convert_list_data_to_lightweight_charts_format } from '../utils/transferModle'
+import { convert_list_data_to_lightweight_charts_format } from '../utils/transferModel'
 // import { seriesesData } from '../mock/chartData'
 
 

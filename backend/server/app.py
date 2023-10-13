@@ -9,7 +9,7 @@ from datetime import datetime
 from flask import Flask, request, Response
 from flask.helpers import make_response
 
-from controller import bar, opportunities, symbol_data, symbols
+from controller import bar, opportunities, symbol_data, symbols, position_calculate
 from trade_opportunities_job import main as trade_opportunities_job
 
 from utils.json import custom_json_handler
@@ -19,6 +19,32 @@ import cron_job
 
 
 app = Flask(__name__)
+
+@app.route('/position_calculate', methods=['POST'])
+def get_position_calculate():
+    json_data = request.json
+
+    args = {
+        'symbol': json_data.get('symbol'),
+        'symbol_type': json_data.get('symbol_type'),
+        'entry_price': json_data.get('entry_price'),
+        'sl_price': json_data.get('sl_price'),
+        'tp_price': json_data.get('tp_price'),
+        'risk_amount': json_data.get('risk_amount'),
+        'margin_level': json_data.get('margin_level'),
+    }
+
+    data = position_calculate.calculate(args)
+    resp = make_response()
+
+    resp_data = {
+        'code': 'success',
+        'data': data
+    }
+
+    resp = Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+    return resp
+
 
 @app.route('/symbols', methods=['GET'])
 def get_symbols():

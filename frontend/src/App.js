@@ -8,11 +8,12 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { ConfigProvider, Layout, Menu, theme, Space } from 'antd';
-import BarDetailContainer from './contaniers/BarDetailContainer'
-import DateOpsContainer from './contaniers/DateOpsContainer'
-import SymbolChartContainer from './contaniers/SymbolChartContainer'
-import SymbolsContainer from './contaniers/SymbolsContainer'
-// import AipContainer from './contaniers/AipContainer'
+// import AipContainer from './containers/AipContainer'
+import BarDetailContainer from './containers/BarDetailContainer'
+import DateOpsContainer from './containers/DateOpsContainer'
+import SymbolChartContainer from './containers/SymbolChartContainer'
+import SymbolsContainer from './containers/SymbolsContainer'
+import PositionCalculateContainer from './containers/PositionCalculateContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 var itemKey = 0
@@ -36,14 +37,11 @@ const items = [
     <FileOutlined />
     <a href="/symbols"/>
   </Space>),
-  getItem('Option', <><PieChartOutlined href="/bar/detail"/></>),
-  getItem('Option', <DesktopOutlined />),
-  getItem('User', <UserOutlined />, [
-    getItem('Tom', <><PieChartOutlined /><a href="/bar/detail"/></>),
-    getItem('Bill'),
-    getItem('Alex'),
-  ]),
-  getItem('Files', <FileOutlined />),
+  getItem('仓位计算器',
+  <Space size={1}>
+    <FileOutlined />
+    <a href="/position_calculate"/>
+  </Space>),
 ];
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -90,12 +88,13 @@ const App = () => {
           >
             <Router>
                 <Routes>
+                  <Route path="/" element={ <Navigate to="/symbols" /> } />
                   {/* <Route path="/aip/list" element={<AipListContainer />}></Route> */}
                   <Route path="/symbols" element={<SymbolsContainer />}></Route>
                   <Route path="/bar/detail" element={<BarDetailContainer />}></Route>
                   <Route path="/symbol/:symbol_type/:symbol" element={<SymbolChartContainer />}></Route>
                   <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
-                  <Route path="/" element={ <Navigate to="/symbols" /> } />
+                  <Route path="/position_calculate" element={<PositionCalculateContainer />}></Route>
                 </Routes>
             </Router>
           </Content>
