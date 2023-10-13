@@ -2,7 +2,7 @@ import snakeCase from 'lodash.snakecase'
 import mapKeys from 'lodash.mapkeys'
 import { useState, useEffect } from 'react';
 
-import { theme, Form, Input, Button, Descriptions } from 'antd';
+import { theme, Form, Input, Button, Descriptions, Space } from 'antd';
 
 import Select from '../components/Common/Select'
 import { commonService } from '../services/CommonService'
@@ -40,6 +40,10 @@ const App = () => {
 
   const onValuesChange = (data) => {
   };
+
+  const onClickReset = () => {
+    form.resetFields()
+  }
 
   const onFinish = (data) => {
     setLoading(true)
@@ -218,16 +222,23 @@ const App = () => {
           />
         </Form.Item>
         <Form.Item
-          wrapperCol={{
-            span: 14,
-          }}
+          wrapperCol={{ xs: { span: 4 }, sm: { span: 4, offset: 4 } }}
         >
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={loading}
-          >计算</Button>
+          <Space size={50}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >计算</Button>
+
+            <Button
+                type="default"
+                onClick={onClickReset}
+            >重置</Button>
+          </Space>
+
         </Form.Item>
+
       </Form>
 
       {
