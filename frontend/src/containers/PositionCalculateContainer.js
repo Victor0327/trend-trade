@@ -224,7 +224,7 @@ const App = () => {
         <Form.Item
           wrapperCol={{ xs: { span: 4 }, sm: { span: 4, offset: 4 } }}
         >
-          <Space size={50}>
+          <Space size={30}>
             <Button
               type="primary"
               htmlType="submit"
