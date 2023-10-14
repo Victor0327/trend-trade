@@ -15,6 +15,12 @@ def calculate(args):
   if symbol_type == 'cn_goods':
     ac_slash_pc = 1
     account_currency = 'CNY'
+  elif symbol_type == 'us_goods':
+    ac_slash_pc = 1
+    account_currency = 'USD'
+  elif symbol_type == 'crypto':
+    ac_slash_pc = 1
+    account_currency = 'USD'
   elif symbol_type == 'currency':
 
     margin_currency = symbol[:3]
@@ -43,6 +49,10 @@ def calculate(args):
     units_value = units * entry_price
   elif symbol_type == 'currency':
     units_value = units * mc_slash_ac
+  elif symbol_type == 'us_goods':
+    units_value = units * entry_price
+  elif symbol_type == 'crypto':
+    units_value = units * entry_price
 
   margin = round(units_value * margin_level, 2)
 

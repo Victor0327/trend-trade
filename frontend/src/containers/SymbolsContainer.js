@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import React, { useState, useEffect, useRef } from 'react';
 import { Breadcrumb, theme, Space, Table } from 'antd';
 import Message from '../components/Common/Message'
@@ -89,6 +90,10 @@ const Container = () => {
 
   return (
         <>
+          <Helmet>
+            <title>行情数据</title>
+            <meta name="description" content="查看行情走势 - victor trade" />
+          </Helmet>
           <div
             style={{
               padding: 24,

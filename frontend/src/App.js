@@ -2,10 +2,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import {
-  DesktopOutlined,
   FileOutlined,
-  PieChartOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
 import { ConfigProvider, Layout, Menu, theme, Space } from 'antd';
 // import AipContainer from './containers/AipContainer'
@@ -17,34 +14,52 @@ import PositionCalculateContainer from './containers/PositionCalculateContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 var itemKey = 0
-function getItem(label, icon, children) {
-  itemKey ++
+function getItem(label, icon, children, key) {
   return {
-    key: itemKey,
+    key,
     icon,
     children,
     label,
   };
 }
 const items = [
-  getItem('定期投资',
-  <Space size={1}>
-    <FileOutlined />
-    <a href="/aip/list"/>
-  </Space>),
-  getItem('行情数据',
-  <Space size={1}>
-    <FileOutlined />
-    <a href="/symbols"/>
-  </Space>),
-  getItem('仓位计算器',
-  <Space size={1}>
-    <FileOutlined />
-    <a href="/position_calculate"/>
-  </Space>),
+  getItem(
+    '定期投资',
+    <Space size={1}>
+      <FileOutlined />
+      <a href="/aip/list"/>
+    </Space>,
+    undefined,
+    'aip'
+  ),
+  getItem(
+    '行情数据',
+    <Space size={1}>
+      <FileOutlined />
+      <a href="/symbols"/>
+    </Space>,
+    undefined,
+    'symbols'
+  ),
+  getItem(
+    '仓位计算器',
+    <Space size={1}>
+      <FileOutlined />
+      <a href="/position_calculate"/>
+    </Space>,
+    undefined,
+    'position_calculate'
+  ),
 ];
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [current, setCurrent] = useState(undefined);
+
+  const onClick = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -72,7 +87,7 @@ const App = () => {
           collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
         >
           <div className="demo-logo-vertical" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+          <Menu theme="dark" selectedKeys={[current]} mode="inline" items={items} onClick={onClick}/>
         </Sider>
         <Layout>
           {/* <Header
