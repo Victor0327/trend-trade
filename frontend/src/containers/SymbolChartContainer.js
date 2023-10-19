@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Breadcrumb, theme, Radio, Space } from 'antd';
+import { Breadcrumb, theme, Radio, Space, Typography } from 'antd';
 import { createChart } from 'lightweight-charts';
 
 import { commonService } from '../services/CommonService'
@@ -8,6 +8,7 @@ import { convert_list_data_to_lightweight_charts_format } from '../utils/transfe
 // import { seriesesData } from '../mock/chartData'
 
 
+const { Title } = Typography;
 var seriesesData = new Map();
 
 const Container = () => {
@@ -115,13 +116,7 @@ const Container = () => {
             }}
           >
             <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-              <Breadcrumb
-                style={{
-                  margin: '60px 0 0 0',
-                }}
-              >
-                <Breadcrumb.Item>【{symbol}】价格图表</Breadcrumb.Item>
-              </Breadcrumb>
+              <Title level={4}>【{symbol}】价格图表</Title>
               <div id="chart"></div>
               <Radio.Group defaultValue={intervals[0]} buttonStyle="solid" onChange={handleChangeSwitcher}>
                 {

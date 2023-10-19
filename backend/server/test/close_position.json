@@ -1,0 +1,9 @@
+{
+  "id": 3,
+  "risk_amount_currency": "CNY",
+  "risk_amount": 2000,
+
+  "close_date": "2023-09-10 00:00:00",
+  "result": 2,
+  "memo": "finished"
+}

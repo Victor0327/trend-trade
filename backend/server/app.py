@@ -9,7 +9,7 @@ from datetime import datetime
 from flask import Flask, request, Response
 from flask.helpers import make_response
 
-from controller import bar, opportunities, symbol_data, symbols, position_calculate
+from controller import bar, opportunities, symbol_data, symbols, position_calculate, trade_record
 from trade_opportunities_job import main as trade_opportunities_job
 
 from utils.json import custom_json_handler
@@ -19,6 +19,108 @@ import cron_job
 
 
 app = Flask(__name__)
+
+# 交易记录
+@app.route('/trade_record/strategy_requirement', methods=['GET'])
+def get_strategy_requirement():
+    args = {
+        'strategy_id': request.args.get('strategy_id')
+    }
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.get_strategy_requirement(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/trade_record/strategy', methods=['GET'])
+def get_strategy():
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.get_strategy()
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+
+@app.route('/trade_record/delete_data', methods=['POST'])
+def delete_data():
+    args = {
+        'risk_amount_currency': request.json.get('risk_amount_currency'),
+        'risk_amount': request.json.get('risk_amount'),
+        'id': request.json.get('id')
+    }
+
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.delete_trade_record(args)
+    }
+
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/trade_record/close_position', methods=['POST'])
+def close_position():
+    args = {
+        'risk_amount_currency': request.json.get('risk_amount_currency'),
+        'risk_amount': request.json.get('risk_amount'),
+        'id': request.json.get('id'),
+        'close_date': request.json.get('close_date'),
+        'result': request.json.get('result'),
+        'memo': request.json.get('memo'),
+    }
+
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.close_position(args)
+    }
+
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/trade_record/open_position', methods=['POST'])
+def open_position():
+    args = {
+        'risk_amount_currency': request.json.get('risk_amount_currency'),
+        'risk_amount': request.json.get('risk_amount'),
+        'open_date': request.json.get('open_date'),
+        'symbol_type': request.json.get('symbol_type'),
+        'symbol': request.json.get('symbol'),
+        'strategy_id': request.json.get('strategy_id'),
+        'risk': request.json.get('risk'),
+        'memo': request.json.get('memo'),
+        'strategy_requirement_performance_array': request.json.get('strategy_requirement_performance_array'),
+    }
+
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.create_trade_record(args)
+    }
+
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/trade_record/cumulative_sum', methods=['GET'])
+def cumulative_sum():
+    args = {
+        'risk_amount': request.args.get('risk_amount'),
+        'risk_amount_currency': request.args.get('risk_amount_currency'),
+        'strategy_id': request.args.get('strategy_id'),
+    }
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.get_cumulative_sum(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/trade_record/list', methods=['GET'])
+def list_record():
+    args = {
+        'risk_amount': request.args.get('risk_amount'),
+        'risk_amount_currency': request.args.get('risk_amount_currency'),
+    }
+    resp_data = {
+        'code': 'success',
+        'data': trade_record.get_trade_record(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+# 仓位计算器
 
 @app.route('/position_calculate', methods=['POST'])
 def get_position_calculate():

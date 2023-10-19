@@ -3,12 +3,13 @@ import snakeCase from 'lodash.snakecase'
 import mapKeys from 'lodash.mapkeys'
 import { useState, useEffect } from 'react';
 
-import { theme, Form, Input, Button, Descriptions, Space } from 'antd';
+import { theme, Form, Input, Button, Descriptions, Space, Typography } from 'antd';
 
 import Select from '../components/Common/Select'
 import { commonService } from '../services/CommonService'
 import { calculate_descriptions_map } from '../utils/transferModel'
 
+const { Title } = Typography;
 var symbol_list = []
 
 const App = () => {
@@ -116,9 +117,9 @@ const App = () => {
   useEffect(() => {
 
     fetchSymbolData()
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
+      // document.body.style.overflow = '';
     }
   }, [])
 
@@ -135,10 +136,11 @@ const App = () => {
           paddingTop: 30,
           paddingLeft: 24,
           paddingRight: 24,
-          height: 840,
+          height: 900,
           background: colorBgContainer,
         }}
       >
+        <Title level={4}>仓位计算器</Title>
 
         <Form
           labelCol={{ xs: { span: 8 }, sm: { span: 4 } }}

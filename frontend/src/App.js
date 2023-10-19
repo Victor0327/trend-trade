@@ -11,6 +11,7 @@ import DateOpsContainer from './containers/DateOpsContainer'
 import SymbolChartContainer from './containers/SymbolChartContainer'
 import SymbolsContainer from './containers/SymbolsContainer'
 import PositionCalculateContainer from './containers/PositionCalculateContainer'
+import TradeRecordContainer from './containers/TradeRecordContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 var itemKey = 0
@@ -49,6 +50,15 @@ const items = [
     </Space>,
     undefined,
     'position_calculate'
+  ),
+  getItem(
+    '交易记录',
+    <Space size={1}>
+      <FileOutlined />
+      <a href="/trade_record"/>
+    </Space>,
+    undefined,
+    'trade_record'
   ),
 ];
 const App = () => {
@@ -110,6 +120,7 @@ const App = () => {
                   <Route path="/symbol/:symbol_type/:symbol" element={<SymbolChartContainer />}></Route>
                   <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
                   <Route path="/position_calculate" element={<PositionCalculateContainer />}></Route>
+                  <Route path="/trade_record" element={<TradeRecordContainer />}></Route>
                 </Routes>
             </Router>
           </Content>

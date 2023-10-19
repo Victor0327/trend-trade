@@ -1,11 +1,12 @@
 import { Helmet } from 'react-helmet';
 import React, { useState, useEffect, useRef } from 'react';
-import { Breadcrumb, theme, Space, Table } from 'antd';
+import { theme, Space, Table, Typography } from 'antd';
 import Message from '../components/Common/Message'
 import { getColumnSearchProps } from '../components/Common/ColumnSearch'
 
 import { commonService } from '../services/CommonService'
 
+const { Title } = Typography;
 const ref = React.createRef();
 
 
@@ -101,15 +102,10 @@ const Container = () => {
               background: colorBgContainer,
             }}
           >
+            <Title level={4}>行情数据</Title>
             <div>
               <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                <Breadcrumb
-                  style={{
-                    margin: '60px 0 0 0',
-                  }}
-                >
-                  <Breadcrumb.Item>标的列表</Breadcrumb.Item>
-                </Breadcrumb>
+
                 <Table columns={symbolsColumns} dataSource={cryptoTableData} size="small" />
                 <Table columns={symbolsColumns} dataSource={USGoodsTableData} size="small" />
                 <Table columns={symbolsColumns} dataSource={CNGoodsTableData} size="small" />

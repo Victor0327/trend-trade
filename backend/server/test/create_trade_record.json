@@ -1,0 +1,20 @@
+{
+  "risk_amount_step_id": 2,
+  "risk_amount_currency": "USD",
+  "risk_amount": 100,
+
+  "open_date": "2023-09-08 00:00:00",
+  "symbol_type": "currency",
+  "symbol": "USDJPY",
+  "strategy_id": 1,
+  "risk": 1,
+  "memo": "test currency",
+
+  "strategy_requirement_performance_array" : [
+    [1, "S", "ccc"],
+    [2, "A", "aaa"],
+    [3, "S", "test"],
+    [4, "S", "bbb"],
+    [5, "A", "ddd"]
+  ]
+}
