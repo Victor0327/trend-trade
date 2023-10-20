@@ -12,6 +12,7 @@ import SymbolChartContainer from './containers/SymbolChartContainer'
 import SymbolsContainer from './containers/SymbolsContainer'
 import PositionCalculateContainer from './containers/PositionCalculateContainer'
 import TradeRecordContainer from './containers/TradeRecordContainer'
+import MyFocusSymbolChartCardContainer from './containers/MyFocusSymbolChartCardContainer'
 
 const { Header, Content, Footer, Sider } = Layout;
 var itemKey = 0
@@ -39,7 +40,54 @@ const items = [
       <FileOutlined />
       <a href="/symbols"/>
     </Space>,
-    undefined,
+    [
+      getItem(
+        '全部行情数据',
+        <Space size={1}>
+          <FileOutlined />
+          <a href="/symbols"/>
+        </Space>,
+        undefined,
+        'all_symbols'
+      ),
+      getItem(
+        '国内期货关注',
+        <Space size={1}>
+          <FileOutlined />
+          <a href="/my_focus/chart/cn_goods"/>
+        </Space>,
+        undefined,
+        'my_focus_cn_goods'
+      ),
+      getItem(
+        '国际商品关注',
+        <Space size={1}>
+          <FileOutlined />
+          <a href="/my_focus/chart/us_goods"/>
+        </Space>,
+        undefined,
+        'my_focus_us_goods'
+      ),
+      getItem(
+        '外汇关注',
+        <Space size={1}>
+          <FileOutlined />
+          <a href="/my_focus/chart/currency"/>
+        </Space>,
+        undefined,
+        'my_focus_currency'
+      ),
+      getItem(
+        '数字货币关注',
+        <Space size={1}>
+          <FileOutlined />
+          <a href="/my_focus/chart/crypto"/>
+        </Space>,
+        undefined,
+        'my_focus_crypto'
+      ),
+
+    ],
     'symbols'
   ),
   getItem(
@@ -121,6 +169,7 @@ const App = () => {
                   <Route path="/ops/:date" element={<DateOpsContainer />}></Route>
                   <Route path="/position_calculate" element={<PositionCalculateContainer />}></Route>
                   <Route path="/trade_record" element={<TradeRecordContainer />}></Route>
+                  <Route path="/my_focus/chart/:type" element={<MyFocusSymbolChartCardContainer />}></Route>
                 </Routes>
             </Router>
           </Content>

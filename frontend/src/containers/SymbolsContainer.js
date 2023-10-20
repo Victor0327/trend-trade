@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet';
 import React, { useState, useEffect, useRef } from 'react';
-import { theme, Space, Table, Typography } from 'antd';
+import { theme, Space, Table, Typography, message, Button } from 'antd';
 import Message from '../components/Common/Message'
 import { getColumnSearchProps } from '../components/Common/ColumnSearch'
 
@@ -39,6 +39,34 @@ const Container = () => {
 
   const fetchTableData = (type) => {
     return commonService.get(`/symbols?type=${type}`).then(res => res.data.data)
+  }
+
+  const focusSymbol = (record) => {
+    return commonService.get(`/my_focus/add_to_focus?id=${record.id}`).then(res => {
+      message.success('关注成功！');
+      refreshTableData(record.type)
+    })
+  }
+
+  const unFocusSymbol = (record) => {
+    return commonService.get(`/my_focus/remove_from_focus?id=${record.my_focus_symbols_id}`).then(res => {
+      message.success('取消关注成功！');
+      refreshTableData(record.type)
+    })
+  }
+
+  const refreshTableData = (type) => {
+    fetchTableData(type).then((data) => {
+      if (type === 'crypto') {
+        setCryptoTableData(data)
+      } else if (type === 'cn_goods') {
+        setCNGoodsTableData(data)
+      } else if (type === 'us_goods') {
+        setUSGoodsTableData(data)
+      } else if (type === 'currency') {
+        setCurrencyTableData(data)
+      }
+    })
   }
 
 
@@ -81,7 +109,22 @@ const Container = () => {
         <Space size="middle">
           <a href={`/symbol/${record.type}/${record.symbol}`}
           // target="_blank"
-          rel="noopener noreferrer">查看行情</a>
+          rel="noopener noreferrer">查看</a>
+          {
+            record['my_focus_symbols_id']
+            ?
+            <Button type="text" size="small"
+              onClick={() => {
+                unFocusSymbol(record)
+              }}
+            >取消关注</Button>
+            :
+            <Button type="text" size="small"
+              onClick={() => {
+                focusSymbol(record)
+              }}
+            >关注</Button>
+          }
         </Space>
       ),
     },

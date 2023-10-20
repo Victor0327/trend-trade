@@ -1,13 +1,16 @@
 def get_list_sql(args):
     return f"""
     select
-    id,
-    symbol,
-    type,
-    symbol_title
+        symbols.id,
+        symbol,
+        type,
+        symbol_title,
+        my_focus_symbols.id as my_focus_symbols_id
     from symbols
+    left join my_focus_symbols on symbols.id = my_focus_symbols.symbols_id
     where active_flag is true
-    and type = '{args['type']}';
+    and type = '{args['type']}'
+    order by id asc;
 """
 
 def get_latest_currency_price(pair: str):

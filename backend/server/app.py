@@ -20,6 +20,60 @@ import cron_job
 
 app = Flask(__name__)
 
+# 我的关注
+@app.route('/my_focus/remove_from_focus', methods=['GET'])
+def remove_from_focus():
+    args = {
+        'id': request.args.get('id')
+    }
+    resp_data = {
+        'code': 'success',
+        'data': symbols.remove_from_focus(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+
+@app.route('/my_focus/add_to_focus', methods=['GET'])
+def add_to_focus():
+    args = {
+        'id': request.args.get('id')
+    }
+    resp_data = {
+        'code': 'success',
+        'data': symbols.add_to_focus(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/my_focus/pin_to_top', methods=['GET'])
+def pin_to_top():
+    args = {
+        'id': request.args.get('id')
+    }
+    resp_data = {
+        'code': 'success',
+        'data': symbols.pin_to_top(args)
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
+@app.route('/my_focus/list', methods=['GET'])
+def my_focus_list():
+    args = {
+        'type': request.args.get('type'),
+        'page': request.args.get('page'),
+        'limit': request.args.get('limit')
+    }
+
+    list, count = symbols.get_my_focus_symbols(args)
+
+    resp_data = {
+        'code': 'success',
+        'data': {
+            'list': list,
+            'count': count
+        }
+    }
+    return Response(json.dumps(resp_data, default=custom_json_handler), status=200, content_type='application/json')
+
 # 交易记录
 @app.route('/trade_record/strategy_requirement', methods=['GET'])
 def get_strategy_requirement():

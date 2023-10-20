@@ -1,5 +1,6 @@
 from service.postgres_engine import post_db as postgres_engine
 import table.symbol.t_symbols as t_symbols
+import table.symbol.my_focus as my_focus
 
 
 
@@ -32,3 +33,30 @@ def get_symbol_units_per_lot(symbol):
   units_per_lot = data[0]['units_per_lot']
 
   return units_per_lot
+
+
+def get_my_focus_symbols(args):
+  sql = my_focus.get_list_sql(args)
+  count_sql = my_focus.get_list_count_sql(args)
+  list = postgres_engine.run_sql_to_dict_list(sql)
+  count = postgres_engine.run_sql_to_dict_list(count_sql)
+
+  return list, count[0]['count']
+
+def pin_to_top(args):
+  sql = my_focus.pin_to_top(args)
+  postgres_engine.run_sql_to_commit(sql)
+
+  return 'success'
+
+def add_to_focus(args):
+  sql = my_focus.add_to_focus(args)
+  postgres_engine.run_sql_to_commit(sql)
+
+  return 'success'
+
+def remove_from_focus(args):
+  sql = my_focus.remove_from_focus(args)
+  postgres_engine.run_sql_to_commit(sql)
+
+  return 'success'

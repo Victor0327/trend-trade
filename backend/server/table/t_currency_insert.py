@@ -3,10 +3,10 @@ def create_table_and_index_sql(params):
 CREATE TABLE IF NOT EXISTS currency_{params['symbol']}_{params['interval']} (
     id SERIAL PRIMARY KEY,
     date timestamp(6) without time zone UNIQUE,
-    open numeric(10,3),
-    high numeric(10,3),
-    low numeric(10,3),
-    close numeric(10,3)
+    open numeric(15,5),
+    high numeric(15,5),
+    low numeric(15,5),
+    close numeric(15,5)
 );
 
 
