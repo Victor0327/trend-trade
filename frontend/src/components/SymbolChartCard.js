@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, Radio } from 'antd';
+import { Card, Radio, Flex, Button, message } from 'antd';
 import { createChart } from 'lightweight-charts';
 import { convert_list_data_to_lightweight_charts_format } from '../utils/transferModel'
 
@@ -36,7 +36,12 @@ const App = (props) => {
       downColor: '#ef5350',
       borderVisible: false,
       wickUpColor: '#26a69a',
-      wickDownColor: '#ef5350'
+      wickDownColor: '#ef5350',
+      priceFormat: {
+          type: 'price',
+          precision: type === 'currency' ? 5 : 2,
+          minMove: 0.00001,
+      },
     });
     candlestickSeries.current.setData(seriesesData.get(interval));
   }
@@ -103,16 +108,21 @@ const App = (props) => {
   }, []); // 注意这里的空依赖数组
 
   return (
-    <Card title={props.symbol}
+    <Card title={symbolTitle}
       style={{
         marginBottom: 10
       }}
     >
       <div id={props.symbol} style={{ width: '100%', height: '280px' }}></div>
+      <Flex
+          style={{
+            width: '100%',
+            height: 40,
+          }}
+          justify="space-between"
+          align="flex-end"
+      >
       <Radio.Group
-        style={{
-          marginTop: 10
-        }}
         defaultValue={intervals[0]} buttonStyle="solid" onChange={handleChangeSwitcher}
       >
         {
@@ -121,6 +131,10 @@ const App = (props) => {
           })
         }
       </Radio.Group>
+      <Button type="default"
+        onClick={props.onPinToTop}
+      >置顶</Button>
+      </Flex>
     </Card>
   )
 };

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, theme, Pagination, Spin } from 'antd';
+import { Col, Row, theme, Pagination, Spin, message } from 'antd';
 import { useParams } from 'react-router-dom';
 
 import { commonService } from '../services/CommonService'
 import SymbolChartCard from '../components/SymbolChartCard'
+import Message from '../components/Common/Message'
 
-
+const ref = React.createRef();
 
 const Container = () => {
   const {
@@ -23,6 +24,12 @@ const Container = () => {
   const handleChangePagination = (currentPagination) => {
     setCurrentPagination(currentPagination)
     renderPage(currentPagination)
+  }
+
+  const onPinToTop = (id) => {
+    return commonService.get(`/my_focus/pin_to_top?id=${id}`).then(() => {
+      message.success('置顶成功！');
+    })
   }
 
   const renderPage = (currentPagination) => {
@@ -70,6 +77,7 @@ const Container = () => {
                       symbol={item.symbol}
                       type={item.type}
                       symbolTitle={item.symbol_title}
+                      onPinToTop={() => onPinToTop(item.id)}
                     ></SymbolChartCard>
                   </Col>
                 )}
@@ -79,7 +87,7 @@ const Container = () => {
                 showSizeChanger={false}
               />
             </Spin>
-
+            <Message ref={ref}></Message>
           </div>
         </>
   );
