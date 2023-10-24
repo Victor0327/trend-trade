@@ -1,4 +1,5 @@
 import pandas as pd
+import logging
 # import talib
 from itertools import combinations
 from utils.math import calculate_atr
@@ -25,17 +26,17 @@ def is_difference_less_than_threshold(prices, threshold):
 #
 def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
     bar_len = df.__len__()
-    print(bar_len)
+    logging.info(bar_len)
     # 1. 判断最近90根K有6个以上端点
     point = extrema[-points] if len(extrema) >= points else None
     if point is None or bar_len - point['index'] > period_length:
-        print("震荡区间不满足")
+        logging.info("震荡区间不满足")
         return False, None, None
     # 2. 高点和低点之间存在3个点以上差距小于1/2*当下级别ATR的300SMA
     # atr = talib.ATR(df['high'], df['low'], df['close'], timeperiod=200)
     atr = calculate_atr(df, period=200)
     atr_half = atr.iloc[-1] / 2
-    print("1/2 atr", atr.iloc[-1]/2)
+    logging.info("1/2 atr", atr.iloc[-1]/2)
 
     highs = [item for item in extrema if item['type'] == 'high']
     lows = [item for item in extrema if item['type'] == 'low']
@@ -44,7 +45,7 @@ def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
 
 
     if high_lines.__len__() == 0 and low_lines.__len__() == 0:
-        print("关键位置不满足")
+        logging.info("关键位置不满足")
         return False, None, None
 
     # 3. 当前价离最近一条关键位置超过2%的不看
@@ -70,19 +71,19 @@ def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
 
     if nearest_high_line is not None:
         if abs(nearest_high_line - current_price) / current_price >= 0.01 and nearest_low_line is None:
-            print("最后价格不满足")
+            logging.info("最后价格不满足")
             return False, None, None
     if nearest_low_line is not None:
         if abs(nearest_low_line - current_price) / current_price >= 0.01 and nearest_high_line is None:
-            print("最后价格不满足")
+            logging.info("最后价格不满足")
             return False, None, None
 
     if nearest_high_line is not None and nearest_low_line is not None:
         if abs(nearest_high_line - current_price) / current_price >= 0.01 and abs(nearest_low_line - current_price) / current_price >= 0.01:
-            print("最后价格不满足")
+            logging.info("最后价格不满足")
             return False, None, None
         elif current_price > nearest_high_line and current_price < nearest_low_line:
-            print("最后价格不满足")
+            logging.info("最后价格不满足")
             return False, None, None
 
     # 4. 形成关键位置的三个点和当前价之间有更高的高点或者更低的地点超过关键位置4%
@@ -90,13 +91,13 @@ def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
         nearest_high_point = nearest_high_points[-1]
         high_values = df['high'].iloc[nearest_high_point['index']:]
         if abs(high_values.max() - nearest_high_point['price']) / nearest_high_point['price'] > 0.02:
-            print("中间价格高过关键位置")
+            logging.info("中间价格高过关键位置")
             return False, None, None
 
     if nearest_low_points.__len__() > 0:
         nearest_low_point = nearest_low_points[-1]
         low_values = df['low'].iloc[nearest_low_point['index']:]
         if abs(low_values.min() - nearest_low_point['price']) / nearest_low_point['price'] > 0.02:
-            print("中间价格低过关键位置")
+            logging.info("中间价格低过关键位置")
             return False, None, None
     return True, nearest_high_line, nearest_low_line
