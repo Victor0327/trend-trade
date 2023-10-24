@@ -36,7 +36,7 @@ def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
     # atr = talib.ATR(df['high'], df['low'], df['close'], timeperiod=200)
     atr = calculate_atr(df, period=200)
     atr_half = atr.iloc[-1] / 2
-    logging.info("1/2 atr", atr.iloc[-1]/2)
+    logging.info(f"1/2 atr {atr.iloc[-1]/2}")
 
     highs = [item for item in extrema if item['type'] == 'high']
     lows = [item for item in extrema if item['type'] == 'low']
