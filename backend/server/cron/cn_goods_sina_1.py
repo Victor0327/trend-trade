@@ -70,7 +70,7 @@ class CronJob:
     trigger_args = {
       #  9点到11点半 13点半到15点 21点到凌晨2点半
       'hour': '1-3,5-8,13-18',
-      'minute': '*/5',
+      'minute': '*/7',
       'second': 0
     }
 

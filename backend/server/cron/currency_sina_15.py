@@ -72,7 +72,7 @@ class CronJob:
     trigger = 'cron'
     trigger_args = {
       'hour': '*',
-      'minute': '*/15',
+      'minute': '2,17,32,47',
       'second': 0
     }
 
