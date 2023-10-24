@@ -49,7 +49,7 @@ def is_need_to_alert(df: pd.DataFrame, extrema, period_length=90, points=6):
         return False, None, None
 
     # 3. 当前价离最近一条关键位置超过2%的不看
-    current_price = df['close'][-1]
+    current_price = df['close'].iloc[-1]
     nearest_high_line = None
     nearest_high_points = []
     nearest_low_line = None
