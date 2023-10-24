@@ -8,8 +8,9 @@ class ZigZagType(Enum):
     LH = "LH"  # Lower High
 
 def zigzag_indicator(df, pips = 0.01, ext_depth = 12, ext_deviation = 0, ext_backstep = 3):
-    high_list = df['High'].tolist()
-    low_list = df['Low'].tolist()
+    high_list = df['high'].tolist()
+    low_list = df['low'].tolist()
+    date_list = df.index.tolist()
     len_price = len(high_list)
     extrema = []
     if high_list.__len__() < ext_depth:
@@ -27,13 +28,23 @@ def zigzag_indicator(df, pips = 0.01, ext_depth = 12, ext_deviation = 0, ext_bac
             last_highest = high_list[i]
             last_highest_index = i
             if last_extrema_type == "low":
-                extrema.append({"index": last_lowest_index, "price": low_list[last_lowest_index], "type": last_extrema_type})
+                extrema.append({
+                    "index": last_lowest_index,
+                    "price": low_list[last_lowest_index],
+                    "type": last_extrema_type,
+                    "date": date_list[last_lowest_index]
+                })
             last_extrema_type = "high"
         elif low_list[i] < last_lowest - ext_deviation * pips:
             last_lowest = low_list[i]
             last_lowest_index = i
             if last_extrema_type == "high":
-                extrema.append({"index": last_highest_index, "price": high_list[last_highest_index], "type": last_extrema_type})
+                extrema.append({
+                    "index": last_highest_index,
+                    "price": high_list[last_highest_index],
+                    "type": last_extrema_type,
+                    "date": date_list[last_highest_index]
+                })
             last_extrema_type = "low"
         else:
             if high_list[i] > last_highest:
@@ -55,8 +66,18 @@ def zigzag_indicator(df, pips = 0.01, ext_depth = 12, ext_deviation = 0, ext_bac
         i += 1
 
     if last_extrema_type == "high":
-        extrema.append({"index": last_highest_index, "price": high_list[last_highest_index], "type": last_extrema_type})
+        extrema.append({
+            "index": last_highest_index,
+            "price": high_list[last_highest_index],
+            "type": last_extrema_type,
+            "date": date_list[last_highest_index]
+        })
     elif last_extrema_type == "low":
-        extrema.append({"index": last_lowest_index, "price": low_list[last_lowest_index], "type": last_extrema_type})
+        extrema.append({
+            "index": last_lowest_index,
+            "price": low_list[last_lowest_index],
+            "type": last_extrema_type,
+            "date": date_list[last_lowest_index]
+        })
 
     return extrema

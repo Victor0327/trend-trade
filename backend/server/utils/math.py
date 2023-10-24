@@ -4,9 +4,9 @@ from decimal import Decimal, ROUND_HALF_UP
 
 def calculate_atr(df, period=14):
     # 计算三个可能的真实范围值
-    high_low = df['High'] - df['Low']
-    high_close = (df['High'] - df['Close'].shift(1)).abs()
-    low_close = (df['Low'] - df['Close'].shift(1)).abs()
+    high_low = df['high'] - df['low']
+    high_close = (df['high'] - df['close'].shift(1)).abs()
+    low_close = (df['low'] - df['close'].shift(1)).abs()
 
     # 真实范围是三者中的最大值
     tr = pd.concat([high_low, high_close, low_close], axis=1).max(axis=1)
