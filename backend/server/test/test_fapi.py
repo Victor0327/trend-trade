@@ -9,7 +9,7 @@ script_dir = os.path.dirname(script_path)
 sys.path.append(os.path.dirname(script_dir))
 from binance.um_futures import UMFutures
 
-from utils.date import unix_ms_timestamp_to_date_string, date_string_to_unix_ms_timestamp
+from utils.date import date_string_to_unix_ms_timestamp, unix_ms_timestamp_to_date_string, get_current_date, get_delta_date
 
 print(unix_ms_timestamp_to_date_string(1695676380000))
 print(date_string_to_unix_ms_timestamp('2023-09-25 21:13:00', timezone='UTC'))
@@ -23,13 +23,19 @@ um_futures_client = UMFutures(key=api_key, secret=secret_key)
 # print(um_futures_client.account())
 
 # Get account information
-print(um_futures_client.continuous_klines(
+startTime = date_string_to_unix_ms_timestamp(f"{get_delta_date(minutes=60*100)}")
+endTime = date_string_to_unix_ms_timestamp(f"{get_current_date()}")
+
+data_list = um_futures_client.continuous_klines(
   pair='BTCUSDT',
   contractType='PERPETUAL',
-  startTime=1641095256000,
-  endTime=1641181656000,
-  interval='1d')
-)
+  startTime=1697400000000 - 60 * 60 * 1000 * 100,
+  endTime=1697400000000,
+  interval='1h')
+
+new = [[data[0], data[1], data[2], data[3], data[4], data[5]] for data in data_list]
+
+print(new)
 
 # # Post a new order
 # params = {

@@ -8,3 +8,4 @@ yfinance
 binance-futures-connector
 apscheduler
 secure-smtplib
+openai
