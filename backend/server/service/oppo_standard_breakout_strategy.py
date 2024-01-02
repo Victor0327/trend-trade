@@ -77,5 +77,3 @@ def oppo_standard_breakout_strategy(df, symbol, symbol_type,
       'create_time': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     })
     post_db.run_sql_to_commit(sql)
-    send_email(f"【{symbol}阻力和支撑发生变化】阻力{nearest_high_line} 支撑{nearest_low_line}",
-               f"时间{current_close_price_time}，旧阻力{last_oppo['nearest_high_line']} 旧支撑{last_oppo['nearest_low_line']}", "513909280@qq.com")
