@@ -5,8 +5,6 @@ import openai
 logging.basicConfig(level=logging.DEBUG)
 
 
-# 初始化你的API密钥
-openai.api_key = "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"
 
 def ask_gpt3_5_turbo(args):
     # 使用 ChatCompletion 替代 Completion
