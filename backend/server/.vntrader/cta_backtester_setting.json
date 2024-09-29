@@ -1,0 +1,11 @@
+{
+    "class_name": "StandardConsolidationBreakoutStrategy",
+    "vt_symbol": "BTCUSDT.BINANCEFUTURES",
+    "interval": "1m",
+    "start": "2020-01-01",
+    "rate": 2.5e-05,
+    "slippage": 1.0,
+    "size": 1.0,
+    "pricetick": 0.01,
+    "capital": 50000.0
+}

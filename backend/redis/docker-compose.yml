@@ -1,0 +1,6 @@
+services:
+  redis:
+    image: redis:7.0.10
+    container_name: my-redis
+    ports:
+      - "6379:6379"

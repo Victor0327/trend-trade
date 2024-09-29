@@ -1,0 +1,18 @@
+{
+    "trend": {
+        "class_name": "TrendFollowingStrategy",
+        "vt_symbols": [
+            "sa88.CZCE",
+            "rb88.SHFE"
+        ],
+        "setting": {
+            "price_add": 5,
+            "atr_window": 22,
+            "atr_ma_window": 10,
+            "rsi_window": 5,
+            "rsi_entry": 16,
+            "trailing_percent": 0.8,
+            "fixed_size": 1
+        }
+    }
+}

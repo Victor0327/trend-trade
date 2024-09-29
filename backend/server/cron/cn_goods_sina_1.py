@@ -1,5 +1,5 @@
 # 临时执行需要的代码
-# import sys
+import sys
 import os
 
 # 获取当前脚本的绝对路径
@@ -7,7 +7,7 @@ script_path = os.path.abspath(__file__)
 # 获取当前脚本所在的目录路径
 script_dir = os.path.dirname(script_path)
 
-# sys.path.append(os.path.dirname(script_dir))
+sys.path.append(os.path.dirname(script_dir))
 # =======================
 import requests
 import re
@@ -42,7 +42,7 @@ def fetch_data(symbol):
       last_hour = last_hour_time.strftime('%Y-%m-%d %H')
 
       # 只取当前小时和上一个小时的数据
-      filtered_data_list = [x for x in data_list if current_hour in x['d'] or last_hour in x['d']]
+      # filtered_data_list = [x for x in data_list if current_hour in x['d'] or last_hour in x['d']]
 
       params = {
           'symbol': symbol,
@@ -50,15 +50,15 @@ def fetch_data(symbol):
       }
 
       logging.info('filtered_data_list')
-      logging.info(filtered_data_list)
+      # logging.info(filtered_data_list)
 
-      # insert_data_sql = get_insert_sql(params, data_list)
+      insert_data_sql = get_insert_sql(params, data_list)
       # print(insert_data_sql)
-      # post_db.run_sql_to_commit(insert_data_sql)
+      post_db.run_sql_to_commit(insert_data_sql)
 
-      if filtered_data_list.__len__() > 0:
-        insert_data_sql = get_insert_sql(params, filtered_data_list)
-        post_db.run_sql_to_commit(insert_data_sql)
+      # if filtered_data_list.__len__() > 0:
+      #   insert_data_sql = get_insert_sql(params, filtered_data_list)
+      #   post_db.run_sql_to_commit(insert_data_sql)
   else:
       print("No match found.")
 
@@ -111,4 +111,4 @@ class CronJob:
 job = CronJob()
 
 # 临时要执行
-# job.run()
+job.run()

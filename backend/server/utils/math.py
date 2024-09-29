@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from decimal import Decimal, ROUND_HALF_UP
 
 
@@ -27,3 +28,18 @@ def average(decimal_list):
 
 def round_decimal(d: Decimal, places='0.01'):
     return d.quantize(Decimal(places), rounding=ROUND_HALF_UP)
+
+
+def slice_top_elements_from_np_array(array: np.array, is_highest: bool, n_top: int = 3):
+
+    # 使用分区去掉最高的n个数，此操作不会排序整个数组
+    if is_highest:
+        partitioned_array = np.partition(array, -n_top)
+        sliced_values = partitioned_array[-n_top:]  # 被切掉的最高的n个数
+        trimmed_array = partitioned_array[:-n_top]  # 去掉最高n个数后的数组
+    else:
+        partitioned_array = np.partition(array, n_top)
+        sliced_values = partitioned_array[:n_top]  # 被切掉的最高的n个数
+        trimmed_array = partitioned_array[n_top:]  # 去掉最高n个数后的数组
+
+    return trimmed_array, sliced_values

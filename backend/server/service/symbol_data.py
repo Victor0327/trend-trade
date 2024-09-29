@@ -11,3 +11,16 @@ def get_symbol_data(args):
   data_for_chart = data[::-1]
 
   return data_for_chart
+
+
+def get_symbol_raw_data(args):
+  sql = t_symbol_data.get_raw_data_sql(args)
+  data = postgres_engine.run_sql_to_tuple_list(sql)
+
+  return data[::-1]
+
+def get_symbol_data_count(args):
+  sql = t_symbol_data.get_symbol_data_count(args)
+  data = postgres_engine.run_sql_to_tuple_list(sql)
+
+  return data[0][0]
